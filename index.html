@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaibhav Sethi — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060810;
+    --surface: #0c1018;
+    --card: #111622;
+    --border: #1e2a3a;
+    --teal: #00d4ff;
+    --teal2: #0099cc;
+    --green: #00ff9d;
+    --orange: #ff7c35;
+    --muted: #5a6a80;
+    --text: #e8eef5;
+    --sub: #8899aa;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--teal);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--teal);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.5;
+  }
+
+  /* Grid noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(6,8,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--teal);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+  }
+
+  .hero-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 1.0;
+    color: var(--text);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .hero-tagline {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--sub);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+
+  .tag {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: var(--card);
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tag:hover { border-color: var(--teal); color: var(--teal); }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.8s forwards;
+  }
+
+  .btn {
+    padding: 0.8rem 1.8rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: none;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--bg);
+    border: 1px solid var(--teal);
+    font-weight: 500;
+  }
+
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--teal);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--sub);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* Scroll indicator */
+  .scroll-line {
+    position: absolute;
+    bottom: 2rem;
+    left: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.7s 1s forwards;
+  }
+
+  .scroll-line::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--muted);
+  }
+
+  /* Section */
+  section {
+    padding: 6rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--text);
+    margin-bottom: 3rem;
+    max-width: 600px;
+  }
+
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .project-card {
+    background: var(--card);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { background: #141e2e; }
+
+  .project-card.featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .project-card.featured::before {
+    background: linear-gradient(90deg, var(--orange), transparent);
+  }
+
+  .project-num {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+  }
+
+  .project-desc {
+    font-size: 0.82rem;
+    color: var(--sub);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .tech-tag {
+    padding: 0.2rem 0.6rem;
+    background: rgba(0,212,255,0.07);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 2px;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--teal);
+    text-transform: uppercase;
+  }
+
+  .project-link {
+    color: var(--teal);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0,212,255,0.3);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .project-link:hover { border-color: var(--teal); }
+
+  /* Stats side of featured card */
+  .project-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .stat-item {
+    padding: 1.2rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: rgba(0,212,255,0.03);
+  }
+
+  .stat-value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .skill-cell {
+    background: var(--card);
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+
+  .skill-cell:hover { background: #141e2e; }
+
+  .skill-category {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .skill-list li {
+    font-size: 0.8rem;
+    color: var(--sub);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .skill-list li::before {
+    content: '·';
+    color: var(--teal);
+    font-size: 1.2rem;
+    line-height: 0;
+  }
+
+  /* Contact */
+  .contact-section {
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    background: var(--card);
+  }
+
+  .contact-link:hover {
+    border-color: var(--teal);
+    background: rgba(0,212,255,0.04);
+  }
+
+  .contact-link-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .contact-link-value {
+    font-size: 0.82rem;
+    color: var(--text);
+  }
+
+  .contact-link-arrow {
+    color: var(--teal);
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  footer p {
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Terminal blink */
+  .blink {
+    display: inline-block;
+    width: 2px; height: 1.1em;
+    background: var(--teal);
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Divider */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    margin: 1rem 0 2rem;
+    opacity: 0.4;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-logo">VS_</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <p class="hero-label">Portfolio — Vaibhav Sethi</p>
+    <h1 class="hero-name">
+      Building things<br>
+      that <em>measure</em> the<br>
+      world.
+    </h1>
+    <p class="hero-tagline">
+      Statistics major at UBC with a Physics minor. I build machine learning platforms, statistical models, and embedded signal processing systems — from data pipelines to hardware.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Embedded C</span>
+      <span class="tag">Signal Processing</span>
+      <span class="tag">Machine Learning</span>
+      <span class="tag">R / Python</span>
+      <span class="tag">MSP430</span>
+      <span class="tag">XGBoost</span>
+      <span class="tag">Real-Time Systems</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="https://github.com/booboob01" class="btn btn-ghost" target="_blank">GitHub ↗</a>
+    </div>
+  </div>
+  <div class="scroll-line">Scroll to explore</div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section id="projects">
+  <p class="section-label reveal">Selected Work</p>
+  <h2 class="section-title reveal">Projects that ship.</h2>
+  <div class="divider reveal"></div>
+
+  <div class="projects-grid"><!-- Banking Risk Platform -->
+    <div class="project-card featured reveal">
+      <p class="project-num">01 / Featured</p>
+      <h3 class="project-title">Banking Risk Platform</h3>
+      <p class="project-desc">
+        End-to-end credit risk scoring platform built in R. Trains and validates a Probability-of-Default (PD) model using XGBoost, explains individual predictions with SHAP values, and simulates portfolio-level expected loss (PD × LGD × EAD) following Basel framework principles.<br><br>
+        Includes a Shiny dashboard for both batch CSV scoring and single applicant decisions, with governance built in — model card, version tracking, timestamp, and diagnostics.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">R</span>
+        <span class="tech-tag">XGBoost</span>
+        <span class="tech-tag">SHAP</span>
+        <span class="tech-tag">Shiny</span>
+        <span class="tech-tag">Credit Risk</span>
+        <span class="tech-tag">Basel Framework</span>
+        <span class="tech-tag">PD / LGD / EAD</span>
+      </div>
+      <a href="https://github.com/booboob01/banking-risk-platform" class="project-link" target="_blank">View on GitHub →</a>
+    </div>
+
+    </div>
+
+    <!-- Lie Detector -->
+    <div class="project-card reveal">
+      <div>
+        <p class="project-num">02</p>
+      <h3 class="project-title">Biometric Lie Detector</h3>
+        <p class="project-desc">
+          End-to-end embedded lie detection system using an MSP430F5529 microcontroller, MAX30101 optical pulse sensor, and a DIY galvanic skin response circuit built from a voltage divider. Streams RED, IR, and GSR data at 100 samples/sec over UART to a real-time Python signal processing dashboard.<br><br>
+          Implemented software bit-bang I²C from scratch after hardware I²C caused persistent bus contention. Applied IIR high-pass filtering, Butterworth bandpass (0.5–4 Hz), RMSSD heart rate variability calculation, and GSR SCL/SCR decomposition — all fused into a weighted 0–100 deception score with a live 7-panel Matplotlib dashboard.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Embedded C</span>
+          <span class="tech-tag">MSP430F5529</span>
+          <span class="tech-tag">I²C / UART</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">SciPy</span>
+          <span class="tech-tag">Butterworth Filter</span>
+          <span class="tech-tag">RMSSD-HRV</span>
+          <span class="tech-tag">GSR</span>
+          <span class="tech-tag">Matplotlib</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+      </div>
+      <div class="project-stats">
+        <div class="stat-item">
+          <div class="stat-value">100</div>
+          <div class="stat-label">Samples per second streamed over UART</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Physiological signals fused into one deception score</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">76%</div>
+          <div class="stat-label">Detection accuracy across controlled trials</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">0.6V</div>
+          <div class="stat-label">GSR delta between calm and stressed state</div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- LIGO Gravity Spy -->
+    <div class="project-card reveal">
+      <p class="project-num">03</p>
+      <h3 class="project-title">LIGO Gravitational Wave Glitch Classifier</h3>
+      <p class="project-desc">
+        Multi-class classification of noise artifacts (glitches) in LIGO gravitational wave detector data using the Gravity Spy dataset — 7,966 samples across 23 imbalanced classes sourced from the Laser Interferometer Gravitational-Wave Observatory.<br><br>
+        Compared Logistic Regression, SVM, and Random Forest. Handled class imbalance with stratified splits and class weighting. Random Forest achieved 86% weighted F1. Feature importance analysis identified SNR, peak frequency, and signal duration as the strongest predictors.
+      </p>
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">scikit-learn</span>
+        <span class="tech-tag">Random Forest</span>
+        <span class="tech-tag">Multi-class Classification</span>
+        <span class="tech-tag">Class Imbalance</span>
+        <span class="tech-tag">LIGO / Physics</span>
+        <span class="tech-tag">Cross-Validation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section id="skills">
+  <p class="section-label reveal">Technical Stack</p>
+  <h2 class="section-title reveal">What I work with.</h2>
+  <div class="divider reveal"></div>
+
+  <div class="skills-grid reveal">
+    <div class="skill-cell">
+      <p class="skill-category">Embedded</p>
+      <ul class="skill-list">
+        <li>MSP430F5529</li>
+        <li>Embedded C</li>
+        <li>Software I²C</li>
+        <li>UART / ADC</li>
+        <li>MAX30102 PPG</li>
+        <li>Texas Instruments CCS</li>
+      </ul>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Signal Processing</p>
+      <ul class="skill-list">
+        <li>IIR / FIR Filters</li>
+        <li>Butterworth Bandpass</li>
+        <li>RMSSD / HRV Analysis</li>
+        <li>GSR SCL / SCR</li>
+        <li>Peak Detection</li>
+        <li>SciPy / NumPy</li>
+      </ul>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Machine Learning</p>
+      <ul class="skill-list">
+        <li>XGBoost</li>
+        <li>SHAP Explainability</li>
+        <li>Credit Risk Modeling</li>
+        <li>PD / LGD / EAD</li>
+        <li>Feature Engineering</li>
+        <li>Model Calibration</li>
+      </ul>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Languages & Tools</p>
+      <ul class="skill-list">
+        <li>Python</li>
+        <li>R / Shiny</li>
+        <li>C (Embedded)</li>
+        <li>Matplotlib</li>
+        <li>Git / GitHub</li>
+        <li>LaTeX</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── HOBBIES ── -->
+<section id="hobbies">
+  <p class="section-label reveal">Beyond the Code</p>
+  <h2 class="section-title reveal">What I do for fun.</h2>
+  <div class="divider reveal"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border);border:1px solid var(--border);" class="reveal">
+
+    <div style="background:var(--card);padding:2rem;transition:background 0.3s;" onmouseenter="this.style.background='#141e2e'" onmouseleave="this.style.background='var(--card)'">
+      <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Recreational Analysis</p>
+      <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;">R for fun, actually.</h3>
+      <p style="font-size:0.82rem;color:var(--sub);line-height:1.75;">
+        I run random analyses on R just because I'm curious. Recent ones: comparing cost-of-living vs average salary across countries to figure out where you could buy a BMW the fastest. Spoiler — it's not where you'd expect.
+        <br><br>
+        It's the same instinct that drives the banking risk platform — find a dataset, ask a dumb question, let the numbers answer it.
+      </p>
+      <div style="margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:0.4rem;">
+        <span class="tech-tag">R</span>
+        <span class="tech-tag">Data Viz</span>
+        <span class="tech-tag">Curiosity-Driven</span>
+      </div>
+    </div>
+
+    <div style="background:var(--card);padding:2rem;transition:background 0.3s;" onmouseenter="this.style.background='#141e2e'" onmouseleave="this.style.background='var(--card)'">
+      <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;">Music & Culture</p>
+      <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;">Clubbing & music.</h3>
+      <p style="font-size:0.82rem;color:var(--sub);line-height:1.75;">
+        When I'm not in front of a screen I'm usually out — clubs, live music, whatever's happening in Vancouver. Music keeps me sane when debugging embedded firmware at 1am doesn't.
+        <br><br>
+        Also useful context: I can confirm from personal experience that stress physiologically measurable. The lie detector data looks very different after a night out.
+      </p>
+      <div style="margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:0.4rem;">
+        <span class="tech-tag" style="border-color:rgba(255,124,53,0.3);color:var(--orange);background:rgba(255,124,53,0.07);">Vancouver</span>
+        <span class="tech-tag" style="border-color:rgba(255,124,53,0.3);color:var(--orange);background:rgba(255,124,53,0.07);">Music</span>
+        <span class="tech-tag" style="border-color:rgba(255,124,53,0.3);color:var(--orange);background:rgba(255,124,53,0.07);">Human</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact" class="contact-section">
+  <p class="section-label reveal">Get In Touch</p>
+  <h2 class="section-title reveal">Let's build something.</h2>
+  <div class="divider reveal"></div>
+
+  <div class="contact-grid reveal">
+    <div>
+      <p style="color: var(--sub); font-size: 0.85rem; line-height: 1.8; margin-bottom: 2rem;">
+        I'm a Statistics major (Physics minor) at UBC who builds things end-to-end — from credit risk models and SHAP explainability to embedded sensors and real-time signal processing. Always open to interesting problems, internships, or collaborations in data science, quantitative finance, or statistical modelling.
+      </p>
+      <p style="color: var(--muted); font-size: 0.75rem; letter-spacing: 0.05em;">
+        Currently based in Vancouver, BC.
+      </p>
+    </div>
+    <div class="contact-links">
+      <a href="https://github.com/booboob01" class="contact-link" target="_blank">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-value">booboob01</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="mailto:vbhvsethi@gmail.com" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">vbhvsethi@gmail.com</span>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Vaibhav Sethi</p>
+  <p>Built from scratch · Vancouver BC</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+      ring.style.opacity = '0.8';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '36px';
+      ring.style.height = '36px';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Animated terminal typing in hero
+  const tagline = document.querySelector('.hero-tagline');
+</script>
+</body>
+</html>
