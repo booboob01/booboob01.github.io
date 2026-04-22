@@ -3,890 +3,739 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaibhav Sethi — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Vaibhav Sethi — Statistics &amp; Physics · UBC</title>
+<meta name="description" content="Vaibhav Sethi. B.Sc. Statistics and Physics at UBC. Credit risk modelling, gravitational-wave classification, housing prices. Available Summer 2026.">
+<meta name="author" content="Vaibhav Sethi">
+<meta property="og:title" content="Vaibhav Sethi — Statistics &amp; Physics · UBC">
+<meta property="og:description" content="End-to-end data models. Credit risk, gravitational waves, housing prices. Available Summer 2026.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0d0b09">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
+
 <style>
   :root {
-    --bg: #060810;
-    --surface: #0c1018;
-    --card: #111622;
-    --border: #1e2a3a;
-    --teal: #00d4ff;
-    --teal2: #0099cc;
-    --green: #00ff9d;
-    --orange: #ff7c35;
-    --muted: #5a6a80;
-    --text: #e8eef5;
-    --sub: #8899aa;
+    --bg: #0d0b09;
+    --bg-card: #141210;
+    --bg-soft: #1a1714;
+    --cream: #f4efe6;
+    --cream-soft: #e8e0d0;
+    --cream-dim: #a49f96;
+    --muted: #706b62;
+    --muted-dark: #4a453e;
+    --line: #2a2622;
+    --line-light: #3a342e;
+    --oxblood: #c2453a;
+    --oxblood-bright: #e85a4a;
+    --oxblood-soft: #8b2d24;
+    --gold: #d4a24c;
+    --terminal: #8ab07a;
+    --shadow: rgba(0, 0, 0, 0.45);
+    --display: "Fraunces", "Playfair Display", Georgia, serif;
+    --body: "Newsreader", "Lora", Georgia, serif;
+    --mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
   }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--bg); }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    overflow-x: hidden;
-    cursor: none;
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--cream);
+    font-family: var(--body);
+    font-size: 18px; line-height: 1.55;
+    font-variation-settings: "opsz" 16;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative; overflow-x: hidden;
   }
-
-  /* Custom cursor */
-  .cursor {
-    position: fixed;
-    width: 10px; height: 10px;
-    background: var(--teal);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none;
+    z-index: 200; opacity: 0.45;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 0.95 0 0 0 0 0.85 0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     mix-blend-mode: screen;
   }
-  .cursor-ring {
-    position: fixed;
-    width: 36px; height: 36px;
-    border: 1px solid var(--teal);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
-    opacity: 0.5;
+  .cursor {
+    position: fixed; width: 20px; height: 20px;
+    border: 1px solid var(--oxblood-bright); border-radius: 50%;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease-out, width 0.2s, height 0.2s, background 0.2s;
+    transform: translate(-50%, -50%); mix-blend-mode: difference; display: none;
   }
-
-  /* Grid noise overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,212,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.015) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Nav */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(6,8,16,0.8);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--teal);
-    letter-spacing: 0.05em;
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--teal); }
-
-  /* Hero */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 8rem 3rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-  }
-
-  .hero-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.6s 0.2s forwards;
-  }
-
-  .hero-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(3.5rem, 8vw, 7rem);
-    line-height: 1.0;
-    color: var(--text);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.35s forwards;
-  }
-
-  .hero-name em {
-    font-style: italic;
-    color: var(--teal);
-  }
-
-  .hero-tagline {
-    font-size: clamp(0.95rem, 2vw, 1.15rem);
-    color: var(--sub);
-    max-width: 560px;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.5s forwards;
-  }
-
-  .hero-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.65s forwards;
-  }
-
-  .tag {
-    padding: 0.35rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    text-transform: uppercase;
-    background: var(--card);
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .tag:hover { border-color: var(--teal); color: var(--teal); }
-
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.7s 0.8s forwards;
-  }
-
-  .btn {
-    padding: 0.8rem 1.8rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: all 0.2s;
-    cursor: none;
-  }
-
-  .btn-primary {
-    background: var(--teal);
-    color: var(--bg);
-    border: 1px solid var(--teal);
-    font-weight: 500;
-  }
-
-  .btn-primary:hover {
-    background: transparent;
-    color: var(--teal);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--sub);
-    border: 1px solid var(--border);
-  }
-
-  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
-
-  /* Scroll indicator */
-  .scroll-line {
-    position: absolute;
-    bottom: 2rem;
-    left: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    color: var(--muted);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeUp 0.7s 1s forwards;
-  }
-
-  .scroll-line::before {
-    content: '';
-    width: 40px; height: 1px;
-    background: var(--muted);
-  }
-
-  /* Section */
-  section {
-    padding: 6rem 3rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 0.8rem;
-  }
-
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: var(--text);
-    margin-bottom: 3rem;
-    max-width: 600px;
-  }
-
-  /* Projects */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-
-  .project-card {
-    background: var(--card);
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-  }
-
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--teal), transparent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s;
-  }
-
-  .project-card:hover::before { transform: scaleX(1); }
-  .project-card:hover { background: #141e2e; }
-
-  .project-card.featured {
-    grid-column: span 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  .project-card.featured::before {
-    background: linear-gradient(90deg, var(--orange), transparent);
-  }
-
-  .project-num {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    margin-bottom: 1rem;
-  }
-
-  .project-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 0.8rem;
-    line-height: 1.2;
-  }
-
-  .project-desc {
-    font-size: 0.82rem;
-    color: var(--sub);
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
-  }
-
-  .project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .tech-tag {
-    padding: 0.2rem 0.6rem;
-    background: rgba(0,212,255,0.07);
-    border: 1px solid rgba(0,212,255,0.15);
-    border-radius: 2px;
-    font-size: 0.65rem;
-    letter-spacing: 0.06em;
-    color: var(--teal);
-    text-transform: uppercase;
-  }
-
-  .project-link {
-    color: var(--teal);
-    text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(0,212,255,0.3);
-    padding-bottom: 2px;
-    transition: border-color 0.2s;
-  }
-
-  .project-link:hover { border-color: var(--teal); }
-
-  /* Stats side of featured card */
-  .project-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .stat-item {
-    padding: 1.2rem;
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    background: rgba(0,212,255,0.03);
-  }
-
-  .stat-value {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem;
-    color: var(--orange);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-
-  .stat-label {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  /* Skills */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin-bottom: 2rem;
-  }
-
-  .skill-cell {
-    background: var(--card);
-    padding: 1.5rem;
-    transition: background 0.2s;
-  }
-
-  .skill-cell:hover { background: #141e2e; }
-
-  .skill-category {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 0.8rem;
-  }
-
-  .skill-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .skill-list li {
-    font-size: 0.8rem;
-    color: var(--sub);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .skill-list li::before {
-    content: '·';
-    color: var(--teal);
-    font-size: 1.2rem;
-    line-height: 0;
-  }
-
-  /* Contact */
-  .contact-section {
-    border-top: 1px solid var(--border);
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 1.2rem;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-    background: var(--card);
-  }
-
-  .contact-link:hover {
-    border-color: var(--teal);
-    background: rgba(0,212,255,0.04);
-  }
-
-  .contact-link-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    flex: 1;
-  }
-
-  .contact-link-value {
-    font-size: 0.82rem;
-    color: var(--text);
-  }
-
-  .contact-link-arrow {
-    color: var(--teal);
-    font-size: 1rem;
-  }
-
-  /* Footer */
-  footer {
-    padding: 2rem 3rem;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-
-  /* Animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Terminal blink */
-  .blink {
-    display: inline-block;
-    width: 2px; height: 1.1em;
-    background: var(--teal);
-    vertical-align: text-bottom;
-    animation: blink 1s step-end infinite;
-  }
-
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-
-  /* Divider */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, var(--teal), transparent);
-    margin: 1rem 0 2rem;
-    opacity: 0.4;
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.5rem; }
-    .hero { padding: 7rem 1.5rem 4rem; }
-    section { padding: 4rem 1.5rem; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 1rem; }
-  }
+  .cursor.active { width: 48px; height: 48px; background: var(--oxblood); border-color: var(--oxblood); }
+  @media (hover: hover) and (pointer: fine) { .cursor { display: block; } }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+  .wrap-narrow { max-width: 820px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+
+  .ticker { background: var(--bg-card); border-bottom: 1px solid var(--line); overflow: hidden; height: 34px; display: flex; align-items: center; position: relative; z-index: 2; }
+  .ticker-inner { display: flex; gap: 3rem; white-space: nowrap; animation: scroll-ticker 55s linear infinite; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--cream-dim); }
+  @keyframes scroll-ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .ticker-item { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .ticker-label { color: var(--muted); }
+  .ticker-value { color: var(--cream); }
+  .ticker-up { color: var(--terminal); }
+
+  .masthead { padding: 1.5rem 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(13, 11, 9, 0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 100; }
+  .masthead-inner { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); }
+  .masthead-brand { display: flex; align-items: center; gap: 0.6rem; color: var(--cream); font-weight: 600; }
+  .masthead-brand::before { content: ""; width: 10px; height: 10px; background: var(--terminal); border-radius: 50%; box-shadow: 0 0 10px var(--terminal); animation: pulse-light 2.5s ease-in-out infinite; }
+  @keyframes pulse-light { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.85); } }
+  .masthead-brand em { font-family: var(--display); font-style: italic; font-weight: 300; font-size: 1.1rem; letter-spacing: 0; text-transform: none; color: var(--cream-dim); }
+  .masthead-nav { display: flex; gap: 2rem; }
+  .masthead-nav a { color: var(--cream-dim); text-decoration: none; position: relative; padding-bottom: 3px; transition: color 0.2s; }
+  .masthead-nav a::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px; background: var(--oxblood-bright); transition: width 0.3s ease; }
+  .masthead-nav a:hover { color: var(--cream); }
+  .masthead-nav a:hover::after { width: 100%; }
+  @media (max-width: 720px) { .masthead-nav { display: none; } .masthead-brand em { display: none; } }
+
+  .hero { padding: 5rem 0 4rem; position: relative; border-bottom: 1px solid var(--line); overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: -20%; background: radial-gradient(ellipse at 20% 30%, rgba(194, 69, 58, 0.1) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(212, 162, 76, 0.06) 0%, transparent 50%); pointer-events: none; z-index: 0; }
+  .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; align-items: center; }
+  @media (max-width: 960px) { .hero-inner { grid-template-columns: 1fr; gap: 3rem; } }
+  .hero-meta { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--oxblood-bright); margin-bottom: 1.8rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .hero-meta-divider { color: var(--muted); }
+  .hero h1 { font-family: var(--display); font-weight: 300; font-variation-settings: "opsz" 144, "SOFT" 50; font-size: clamp(3.5rem, 9vw, 7.5rem); line-height: 0.9; margin: 0 0 1.5rem; color: var(--cream); letter-spacing: -0.025em; }
+  .hero h1 em { font-style: italic; font-weight: 300; color: var(--oxblood-bright); }
+  .hero-tagline { font-family: var(--display); font-style: italic; font-weight: 300; font-variation-settings: "opsz" 72; font-size: clamp(1.4rem, 2.6vw, 1.9rem); line-height: 1.3; color: var(--cream-soft); margin: 0 0 2.5rem; min-height: 1.3em; }
+  .typed-cursor { display: inline-block; width: 2px; height: 0.9em; background: var(--oxblood-bright); margin-left: 4px; vertical-align: text-bottom; animation: blink 0.9s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .hero-byline { font-family: var(--body); font-size: 1.08rem; color: var(--cream-soft); line-height: 1.65; margin-bottom: 2.5rem; max-width: 56ch; }
+  .hero-byline strong { font-weight: 600; color: var(--cream); }
+  .availability { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.6rem 1.2rem; background: rgba(138, 176, 122, 0.08); border: 1px solid rgba(138, 176, 122, 0.3); border-left: 3px solid var(--terminal); font-family: var(--mono); font-size: 0.74rem; letter-spacing: 0.05em; color: var(--cream); margin-bottom: 2.5rem; }
+  .availability::before { content: ""; width: 8px; height: 8px; background: var(--terminal); border-radius: 50%; animation: pulse-light 2s ease-in-out infinite; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 1.4rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--line-light); color: var(--cream); background: transparent; transition: all 0.2s ease; cursor: pointer; position: relative; overflow: hidden; }
+  .btn::before { content: ""; position: absolute; inset: 0; background: var(--cream); transform: translateY(101%); transition: transform 0.3s ease; z-index: -1; }
+  .btn:hover { color: var(--bg); border-color: var(--cream); }
+  .btn:hover::before { transform: translateY(0); }
+  .btn-primary { background: var(--oxblood); border-color: var(--oxblood); color: var(--cream); }
+  .btn-primary::before { background: var(--oxblood-bright); }
+  .btn-primary:hover { color: var(--cream); border-color: var(--oxblood-bright); }
+  .btn-arrow { transition: transform 0.25s ease; }
+  .btn:hover .btn-arrow { transform: translateX(4px); }
+
+  .hero-chart { background: var(--bg-card); border: 1px solid var(--line); padding: 1.5rem; position: relative; min-height: 380px; display: flex; flex-direction: column; }
+  .hero-chart-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; gap: 1rem; }
+  .chart-title-group { display: flex; flex-direction: column; gap: 0.25rem; }
+  .chart-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--oxblood-bright); }
+  .chart-title { font-family: var(--display); font-size: 1.15rem; font-weight: 500; color: var(--cream); letter-spacing: -0.01em; line-height: 1.2; }
+  .chart-ticker { font-family: var(--mono); font-size: 0.65rem; color: var(--cream-dim); text-align: right; line-height: 1.4; }
+  .chart-ticker strong { color: var(--terminal); font-weight: 600; }
+  .chart-canvas { flex: 1; width: 100%; min-height: 260px; }
+  .chart-foot { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.6rem; padding-top: 0.6rem; border-top: 1px solid var(--line); gap: 0.5rem; flex-wrap: wrap; }
+
+  .stats { padding: 3.5rem 0; border-bottom: 1px solid var(--line); background: var(--bg-soft); }
+  .stats-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+  @media (max-width: 720px) { .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; } }
+  .stat { padding: 0 0.5rem; border-left: 1px solid var(--line-light); padding-left: 1.5rem; }
+  .stat:first-child { border-left: none; padding-left: 0.5rem; }
+  .stat-label-top { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--oxblood-bright); margin-bottom: 0.6rem; }
+  .stat-number { font-family: var(--display); font-weight: 300; font-variation-settings: "opsz" 144; font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1; color: var(--cream); display: block; margin-bottom: 0.5rem; letter-spacing: -0.025em; }
+  .stat-number sup { font-size: 0.4em; font-family: var(--mono); vertical-align: super; font-weight: 400; color: var(--cream-dim); }
+  .stat-label { font-family: var(--body); font-size: 0.9rem; color: var(--cream-dim); line-height: 1.4; }
+
+  section.editorial { padding: 5rem 0 4rem; border-bottom: 1px solid var(--line); position: relative; }
+  .section-header { display: flex; align-items: baseline; gap: 1.25rem; margin-bottom: 2.8rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--cream); }
+  .section-num { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.15em; color: var(--oxblood-bright); padding-top: 0.4rem; }
+  .section-title { font-family: var(--display); font-weight: 300; font-variation-settings: "opsz" 72; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; color: var(--cream); margin: 0; letter-spacing: -0.02em; flex: 1; }
+  .section-title em { font-style: italic; color: var(--oxblood-bright); }
+  .section-kicker { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  .about-body { font-family: var(--body); font-size: 1.18rem; line-height: 1.7; color: var(--cream-soft); max-width: 64ch; }
+  .about-body p { margin: 0 0 1.5rem; }
+  .about-body p:first-child::first-letter { font-family: var(--display); font-weight: 300; font-variation-settings: "opsz" 144; font-size: 5rem; line-height: 0.82; float: left; padding: 0.3rem 0.7rem 0 0; color: var(--oxblood-bright); }
+  .about-body strong { color: var(--cream); font-weight: 600; }
+
+  .edu-card { padding: 1.5rem 0; }
+  .edu-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-bottom: 0.8rem; flex-wrap: wrap; }
+  .edu-school { font-family: var(--display); font-weight: 400; font-size: 1.7rem; color: var(--cream); letter-spacing: -0.01em; }
+  .edu-dates { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--cream-dim); text-transform: uppercase; }
+  .edu-degree { font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--cream-soft); margin-bottom: 2rem; }
+  .edu-coursework { display: grid; grid-template-columns: 180px 1fr; gap: 1.1rem 2.5rem; padding-top: 1.8rem; border-top: 1px solid var(--line); }
+  @media (max-width: 640px) { .edu-coursework { grid-template-columns: 1fr; } }
+  .edu-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--oxblood-bright); padding-top: 0.3rem; }
+  .edu-content { font-family: var(--body); font-size: 1.02rem; line-height: 1.65; color: var(--cream-soft); }
+  .edu-content strong { color: var(--cream); font-weight: 600; }
+
+  .featured { background: var(--bg-soft); padding: 5rem 0 4rem; border-bottom: 1px solid var(--line); position: relative; }
+  .featured::before { content: "▪ FEATURED CASE STUDY"; position: absolute; top: 1.8rem; right: 3rem; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--oxblood-bright); }
+  @media (max-width: 720px) { .featured::before { display: none; } }
+
+  .proj-kicker { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--oxblood-bright); margin-bottom: 0.8rem; }
+  .proj-title { font-family: var(--display); font-weight: 400; font-variation-settings: "opsz" 144; font-size: clamp(2.2rem, 4.5vw, 3.5rem); line-height: 1.05; margin: 0 0 1.2rem; color: var(--cream); letter-spacing: -0.025em; }
+  .proj-subtitle { font-family: var(--display); font-style: italic; font-size: 1.3rem; color: var(--cream-soft); margin-bottom: 2rem; line-height: 1.35; }
+  .proj-body { font-family: var(--body); font-size: 1.05rem; line-height: 1.7; color: var(--cream-soft); max-width: 64ch; }
+  .proj-body p { margin: 0 0 1.1rem; }
+  .proj-body strong { color: var(--cream); font-weight: 600; }
+  .proj-body code { font-family: var(--mono); font-size: 0.88em; background: var(--bg); padding: 0.12em 0.5em; color: var(--gold); border: 1px solid var(--line); }
+  .proj-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin: 2rem 0; padding: 2rem 0; border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light); }
+  @media (max-width: 720px) { .proj-metrics { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; } }
+  .metric { text-align: left; }
+  .metric-value { font-family: var(--display); font-weight: 300; font-size: clamp(1.9rem, 3.5vw, 2.5rem); color: var(--cream); line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+  .metric-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); line-height: 1.4; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1.8rem 0; }
+  .tag { font-family: var(--mono); font-size: 0.72rem; padding: 0.35rem 0.8rem; background: var(--bg); color: var(--cream-soft); border: 1px solid var(--line-light); letter-spacing: 0.02em; transition: all 0.2s; }
+  .tag:hover { color: var(--oxblood-bright); border-color: var(--oxblood-soft); }
+  .proj-link { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--mono); font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--oxblood-bright); text-decoration: none; padding-bottom: 3px; border-bottom: 1px solid var(--oxblood-soft); transition: all 0.2s; }
+  .proj-link:hover { color: var(--cream); border-bottom-color: var(--cream); }
+  .proj-link::after { content: "→"; transition: transform 0.25s; }
+  .proj-link:hover::after { transform: translateX(5px); }
+
+  .project-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .project-card { padding: 2.8rem 0; border-bottom: 1px solid var(--line); position: relative; transition: all 0.3s ease; }
+  .project-card:first-child { padding-top: 0.8rem; }
+  .project-card:last-child { border-bottom: none; padding-bottom: 0.5rem; }
+  .project-card::before { content: ""; position: absolute; left: 0; top: 2.8rem; bottom: 2.8rem; width: 3px; background: var(--oxblood-bright); transform: scaleY(0); transform-origin: top; transition: transform 0.4s ease; }
+  .project-card:hover::before { transform: scaleY(1); }
+  .project-card:hover .card-title { transform: translateX(8px); color: var(--oxblood-bright); }
+  .card-head { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; align-items: baseline; margin-bottom: 1.2rem; }
+  @media (max-width: 720px) { .card-head { grid-template-columns: 1fr; gap: 0.4rem; } }
+  .card-title { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 3vw, 2.1rem); color: var(--cream); margin: 0; line-height: 1.15; letter-spacing: -0.015em; transition: all 0.3s ease; }
+  .card-meta { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--cream-dim); text-align: right; text-transform: uppercase; line-height: 1.6; }
+  @media (max-width: 720px) { .card-meta { text-align: left; } }
+  .card-body { font-family: var(--body); font-size: 1.02rem; line-height: 1.65; color: var(--cream-soft); max-width: 70ch; margin-bottom: 1.4rem; }
+  .card-body strong { color: var(--cream); font-weight: 600; }
+  .card-body code { font-family: var(--mono); font-size: 0.88em; background: var(--bg); padding: 0.12em 0.5em; color: var(--gold); border: 1px solid var(--line); }
+  .card-metrics { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.4rem 0; padding: 1.3rem 1.6rem; background: var(--bg-card); border-left: 2px solid var(--oxblood-bright); }
+  .card-metric { line-height: 1.2; }
+  .card-metric-value { font-family: var(--display); font-size: 1.6rem; color: var(--cream); display: block; font-weight: 400; letter-spacing: -0.01em; }
+  .card-metric-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-dim); }
+
+  .stack-grid { display: grid; grid-template-columns: 200px 1fr; gap: 1.4rem 2.5rem; font-family: var(--body); }
+  @media (max-width: 640px) { .stack-grid { grid-template-columns: 1fr; gap: 0.4rem 0; } .stack-grid > .stack-label { margin-top: 1.4rem; } }
+  .stack-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--oxblood-bright); padding-top: 0.3rem; }
+  .stack-items { font-size: 1.02rem; color: var(--cream-soft); line-height: 1.75; }
+  .stack-items strong { color: var(--cream); font-weight: 600; }
+
+  .currently-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  @media (max-width: 720px) { .currently-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .currently-card { padding: 1.8rem; background: var(--bg-card); border: 1px solid var(--line); border-top: 3px solid var(--oxblood-bright); transition: all 0.3s ease; }
+  .currently-card:hover { transform: translateY(-4px); border-color: var(--line-light); box-shadow: 0 20px 40px var(--shadow); }
+  .currently-card-head { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--oxblood-bright); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+  .currently-card-head::before { content: ""; width: 6px; height: 6px; background: var(--oxblood-bright); border-radius: 50%; }
+  .currently-card-title { font-family: var(--display); font-weight: 400; font-size: 1.35rem; color: var(--cream); margin: 0 0 0.6rem; line-height: 1.25; letter-spacing: -0.01em; }
+  .currently-card-body { font-family: var(--body); font-size: 0.95rem; line-height: 1.6; color: var(--cream-dim); }
+
+  .contact { padding: 6rem 0 5rem; position: relative; overflow: hidden; }
+  .contact::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 40%, rgba(194, 69, 58, 0.12) 0%, transparent 50%), radial-gradient(ellipse at 80% 60%, rgba(212, 162, 76, 0.05) 0%, transparent 55%); pointer-events: none; }
+  .contact-inner { position: relative; z-index: 1; }
+  .contact-lead { font-family: var(--display); font-style: italic; font-weight: 300; font-size: clamp(1.8rem, 3.3vw, 2.4rem); line-height: 1.35; color: var(--cream); max-width: 52ch; margin: 0 0 3rem; }
+  .contact-lead em { font-style: normal; color: var(--oxblood-bright); }
+  .contact-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin-bottom: 3rem; }
+  @media (max-width: 640px) { .contact-links { grid-template-columns: 1fr; } }
+  .contact-item { display: flex; justify-content: space-between; align-items: baseline; padding: 1.4rem 1.2rem 1.4rem 0; border-bottom: 1px solid var(--line); color: var(--cream); text-decoration: none; transition: all 0.25s ease; gap: 1rem; position: relative; cursor: pointer; background: transparent; border-left: none; border-right: none; border-top: none; width: 100%; text-align: left; font-size: 1rem; font-family: inherit; }
+  .contact-item::after { content: "→"; position: absolute; right: 0; top: 50%; transform: translateY(-50%) translateX(-8px); color: var(--oxblood-bright); opacity: 0; transition: all 0.25s ease; }
+  .contact-item:hover { padding-left: 1rem; border-bottom-color: var(--oxblood-bright); }
+  .contact-item:hover::after { opacity: 1; transform: translateY(-50%) translateX(0); }
+  .contact-label { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .contact-value { font-family: var(--body); font-size: 1.05rem; color: var(--cream); }
+  .contact-cta { display: inline-flex; align-items: center; gap: 0.7rem; padding: 1rem 1.6rem; background: var(--oxblood); color: var(--cream); font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border: 1px solid var(--oxblood); transition: all 0.25s; }
+  .contact-cta:hover { background: var(--oxblood-bright); border-color: var(--oxblood-bright); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(194, 69, 58, 0.3); }
+
+  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(120%); background: var(--cream); color: var(--bg); padding: 0.9rem 1.5rem; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid var(--cream); box-shadow: 0 10px 40px var(--shadow); z-index: 10000; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  .colophon { background: var(--bg); color: var(--muted); padding: 2.5rem 0; border-top: 1px solid var(--line); }
+  .colophon-inner { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; flex-wrap: wrap; gap: 1rem; }
+  .colophon-inner em { font-family: var(--display); font-style: italic; font-size: 0.95rem; color: var(--cream); letter-spacing: 0; text-transform: none; }
+
+  ::selection { background: var(--oxblood); color: var(--cream); }
+  @media (max-width: 720px) { body { font-size: 17px; } .wrap, .wrap-narrow { padding: 0 1.6rem; } .hero { padding: 3rem 0 3rem; } section.editorial, .featured { padding: 3.5rem 0 3rem; } .contact { padding: 4rem 0 3rem; } .hero-chart { min-height: 320px; } }
 </style>
 </head>
 <body>
 
 <div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<div class="toast" id="toast">✓ Copied</div>
 
-<nav>
-  <a href="#" class="nav-logo">VS_</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-label">VBHV:</span><span class="ticker-value">AVAILABLE</span><span class="ticker-up">▲</span></span>
+    <span class="ticker-item"><span class="ticker-label">STATUS:</span><span class="ticker-value">4TH YEAR UBC</span></span>
+    <span class="ticker-item"><span class="ticker-label">COURSEWORK:</span><span class="ticker-value">DEC 2026</span></span>
+    <span class="ticker-item"><span class="ticker-label">CONVOCATION:</span><span class="ticker-value">MAY 2027</span></span>
+    <span class="ticker-item"><span class="ticker-label">CERT:</span><span class="ticker-value">BLOOMBERG MARKET CONCEPTS</span><span class="ticker-up">✓</span></span>
+    <span class="ticker-item"><span class="ticker-label">LIGO.RF:</span><span class="ticker-value">88% ACC</span><span class="ticker-up">▲</span></span>
+    <span class="ticker-item"><span class="ticker-label">LIGO.F1:</span><span class="ticker-value">0.81 MACRO</span><span class="ticker-up">▲</span></span>
+    <span class="ticker-item"><span class="ticker-label">CREDIT.RISK:</span><span class="ticker-value">R + XGBOOST + SHAP</span></span>
+    <span class="ticker-item"><span class="ticker-label">SEEKING:</span><span class="ticker-value">SUMMER 2026 · FULL-TIME MAY 2027</span></span>
+    <span class="ticker-item"><span class="ticker-label">LOCATIONS:</span><span class="ticker-value">VANCOUVER / DUBAI / GURGAON</span></span>
+    <span class="ticker-item"><span class="ticker-label">VBHV:</span><span class="ticker-value">AVAILABLE</span><span class="ticker-up">▲</span></span>
+    <span class="ticker-item"><span class="ticker-label">STATUS:</span><span class="ticker-value">4TH YEAR UBC</span></span>
+    <span class="ticker-item"><span class="ticker-label">COURSEWORK:</span><span class="ticker-value">DEC 2026</span></span>
+    <span class="ticker-item"><span class="ticker-label">CONVOCATION:</span><span class="ticker-value">MAY 2027</span></span>
+    <span class="ticker-item"><span class="ticker-label">CERT:</span><span class="ticker-value">BLOOMBERG MARKET CONCEPTS</span><span class="ticker-up">✓</span></span>
+    <span class="ticker-item"><span class="ticker-label">LIGO.RF:</span><span class="ticker-value">88% ACC</span><span class="ticker-up">▲</span></span>
+    <span class="ticker-item"><span class="ticker-label">LIGO.F1:</span><span class="ticker-value">0.81 MACRO</span><span class="ticker-up">▲</span></span>
+    <span class="ticker-item"><span class="ticker-label">CREDIT.RISK:</span><span class="ticker-value">R + XGBOOST + SHAP</span></span>
+    <span class="ticker-item"><span class="ticker-label">SEEKING:</span><span class="ticker-value">SUMMER 2026 · FULL-TIME MAY 2027</span></span>
+    <span class="ticker-item"><span class="ticker-label">LOCATIONS:</span><span class="ticker-value">VANCOUVER / DUBAI / GURGAON</span></span>
+  </div>
+</div>
 
-<!-- ── HERO ── -->
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="masthead-brand">VS &nbsp; <em>Vaibhav Sethi</em></div>
+    <nav class="masthead-nav">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <p class="hero-label">Portfolio — Vaibhav Sethi</p>
-    <h1 class="hero-name">
-      Building things<br>
-      that <em>measure</em> the<br>
-      world.
-    </h1>
-    <p class="hero-tagline">
-      Statistics major at UBC with a Physics minor. I build machine learning platforms, statistical models, and embedded signal processing systems — from data pipelines to hardware.
-    </p>
-    <div class="hero-tags">
-      <span class="tag">Embedded C</span>
-      <span class="tag">Signal Processing</span>
-      <span class="tag">Machine Learning</span>
-      <span class="tag">R / Python</span>
-      <span class="tag">MSP430</span>
-      <span class="tag">XGBoost</span>
-      <span class="tag">Real-Time Systems</span>
-    </div>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="https://github.com/booboob01" class="btn btn-ghost" target="_blank">GitHub ↗</a>
-    </div>
-  </div>
-  <div class="scroll-line">Scroll to explore</div>
-</section>
-
-<!-- ── PROJECTS ── -->
-<section id="projects">
-  <p class="section-label reveal">Selected Work</p>
-  <h2 class="section-title reveal">Projects that ship.</h2>
-  <div class="divider reveal"></div>
-
-  <div class="projects-grid"><!-- Banking Risk Platform -->
-    <div class="project-card featured reveal">
-      <p class="project-num">01 / Featured</p>
-      <h3 class="project-title">Banking Risk Platform</h3>
-      <p class="project-desc">
-        End-to-end credit risk scoring platform built in R. Trains and validates a Probability-of-Default (PD) model using XGBoost, explains individual predictions with SHAP values, and simulates portfolio-level expected loss (PD × LGD × EAD) following Basel framework principles.<br><br>
-        Includes a Shiny dashboard for both batch CSV scoring and single applicant decisions, with governance built in — model card, version tracking, timestamp, and diagnostics.
-      </p>
-      <div class="project-tech">
-        <span class="tech-tag">R</span>
-        <span class="tech-tag">XGBoost</span>
-        <span class="tech-tag">SHAP</span>
-        <span class="tech-tag">Shiny</span>
-        <span class="tech-tag">Credit Risk</span>
-        <span class="tech-tag">Basel Framework</span>
-        <span class="tech-tag">PD / LGD / EAD</span>
-      </div>
-      <a href="https://github.com/booboob01/banking-risk-platform" class="project-link" target="_blank">View on GitHub →</a>
-    </div>
-
-    </div>
-
-    <!-- Lie Detector -->
-    <div class="project-card reveal">
+  <div class="wrap">
+    <div class="hero-inner">
       <div>
-        <p class="project-num">02</p>
-      <h3 class="project-title">Biometric Lie Detector</h3>
-        <p class="project-desc">
-          End-to-end embedded lie detection system using an MSP430F5529 microcontroller, MAX30101 optical pulse sensor, and a DIY galvanic skin response circuit built from a voltage divider. Streams RED, IR, and GSR data at 100 samples/sec over UART to a real-time Python signal processing dashboard.<br><br>
-          Implemented software bit-bang I²C from scratch after hardware I²C caused persistent bus contention. Applied IIR high-pass filtering, Butterworth bandpass (0.5–4 Hz), RMSSD heart rate variability calculation, and GSR SCL/SCR decomposition — all fused into a weighted 0–100 deception score with a live 7-panel Matplotlib dashboard.
+        <div class="hero-meta">
+          <span>Statistics &amp; Physics</span>
+          <span class="hero-meta-divider">◆</span>
+          <span>UBC · Vancouver</span>
+          <span class="hero-meta-divider">◆</span>
+          <span>Edition 2026</span>
+        </div>
+        <h1>Vaibhav<br><em>Sethi.</em></h1>
+        <p class="hero-tagline"><span id="typed"></span><span class="typed-cursor"></span></p>
+        <p class="hero-byline">
+          Fourth-year student at <strong>UBC</strong> completing a <strong>combined major in Statistics and Physics.</strong> I build end-to-end analytical systems &mdash; credit-risk scoring in R, gravitational-wave glitch classifiers in Python, real-time embedded signal processing on bare metal. <strong>Bloomberg Market Concepts</strong> certified.
         </p>
-        <div class="project-tech">
-          <span class="tech-tag">Embedded C</span>
-          <span class="tech-tag">MSP430F5529</span>
-          <span class="tech-tag">I²C / UART</span>
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">SciPy</span>
-          <span class="tech-tag">Butterworth Filter</span>
-          <span class="tech-tag">RMSSD-HRV</span>
-          <span class="tech-tag">GSR</span>
-          <span class="tech-tag">Matplotlib</span>
-        </div>
-        <a href="#" class="project-link">View Project →</a>
-      </div>
-      <div class="project-stats">
-        <div class="stat-item">
-          <div class="stat-value">100</div>
-          <div class="stat-label">Samples per second streamed over UART</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">5</div>
-          <div class="stat-label">Physiological signals fused into one deception score</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">76%</div>
-          <div class="stat-label">Detection accuracy across controlled trials</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">0.6V</div>
-          <div class="stat-label">GSR delta between calm and stressed state</div>
+        <div class="availability"><span>AVAILABLE · SUMMER 2026 · FULL-TIME MAY 2027</span></div>
+        <div class="cta-row">
+          <a href="./Vaibhav_Sethi_Resume.pdf" class="btn btn-primary" download>Download Resume <span class="btn-arrow">↓</span></a>
+          <a href="https://github.com/booboob01" class="btn" target="_blank" rel="noopener">GitHub <span class="btn-arrow">→</span></a>
+          <a href="https://linkedin.com/in/vaibhav-sethi-a73a93244" class="btn" target="_blank" rel="noopener">LinkedIn <span class="btn-arrow">→</span></a>
         </div>
       </div>
-    </div>
-
-    
-    <!-- LIGO Gravity Spy -->
-    <div class="project-card reveal">
-      <p class="project-num">03</p>
-      <h3 class="project-title">LIGO Gravitational Wave Glitch Classifier</h3>
-      <p class="project-desc">
-        Multi-class classification of noise artifacts (glitches) in LIGO gravitational wave detector data using the Gravity Spy dataset — 7,966 samples across 23 imbalanced classes sourced from the Laser Interferometer Gravitational-Wave Observatory.<br><br>
-        Compared Logistic Regression, SVM, and Random Forest. Handled class imbalance with stratified splits and class weighting. Random Forest achieved 86% weighted F1. Feature importance analysis identified SNR, peak frequency, and signal duration as the strongest predictors.
-      </p>
-      <div class="project-tech">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">scikit-learn</span>
-        <span class="tech-tag">Random Forest</span>
-        <span class="tech-tag">Multi-class Classification</span>
-        <span class="tech-tag">Class Imbalance</span>
-        <span class="tech-tag">LIGO / Physics</span>
-        <span class="tech-tag">Cross-Validation</span>
+      <div class="hero-chart">
+        <div class="hero-chart-head">
+          <div class="chart-title-group">
+            <div class="chart-label">LIVE · FIG. 01</div>
+            <div class="chart-title">LIGO Gravity Spy</div>
+            <div class="chart-title" style="font-style:italic;font-weight:300;color:var(--cream-dim);font-size:0.92rem;">Class distribution · n=7,966</div>
+          </div>
+          <div class="chart-ticker"><strong>▲ 88%</strong><br>ACC · TUNED RF<br><span style="color:var(--cream-dim)">22 CLASSES</span></div>
+        </div>
+        <canvas class="chart-canvas" id="ligoChart"></canvas>
+        <div class="chart-foot">
+          <span>MAX · BLIP · 1,821</span>
+          <span>MIN · PAIRED_DOVES · 27</span>
+          <span>67× IMBALANCE</span>
+        </div>
       </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── SKILLS ── -->
-<section id="skills">
-  <p class="section-label reveal">Technical Stack</p>
-  <h2 class="section-title reveal">What I work with.</h2>
-  <div class="divider reveal"></div>
-
-  <div class="skills-grid reveal">
-    <div class="skill-cell">
-      <p class="skill-category">Embedded</p>
-      <ul class="skill-list">
-        <li>MSP430F5529</li>
-        <li>Embedded C</li>
-        <li>Software I²C</li>
-        <li>UART / ADC</li>
-        <li>MAX30102 PPG</li>
-        <li>Texas Instruments CCS</li>
-      </ul>
-    </div>
-    <div class="skill-cell">
-      <p class="skill-category">Signal Processing</p>
-      <ul class="skill-list">
-        <li>IIR / FIR Filters</li>
-        <li>Butterworth Bandpass</li>
-        <li>RMSSD / HRV Analysis</li>
-        <li>GSR SCL / SCR</li>
-        <li>Peak Detection</li>
-        <li>SciPy / NumPy</li>
-      </ul>
-    </div>
-    <div class="skill-cell">
-      <p class="skill-category">Machine Learning</p>
-      <ul class="skill-list">
-        <li>XGBoost</li>
-        <li>SHAP Explainability</li>
-        <li>Credit Risk Modeling</li>
-        <li>PD / LGD / EAD</li>
-        <li>Feature Engineering</li>
-        <li>Model Calibration</li>
-      </ul>
-    </div>
-    <div class="skill-cell">
-      <p class="skill-category">Languages & Tools</p>
-      <ul class="skill-list">
-        <li>Python</li>
-        <li>R / Shiny</li>
-        <li>C (Embedded)</li>
-        <li>Matplotlib</li>
-        <li>Git / GitHub</li>
-        <li>LaTeX</li>
-      </ul>
     </div>
   </div>
 </section>
 
-
-<!-- ── HOBBIES ── -->
-<section id="hobbies">
-  <p class="section-label reveal">Beyond the Code</p>
-  <h2 class="section-title reveal">What I do for fun.</h2>
-  <div class="divider reveal"></div>
-
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border);border:1px solid var(--border);" class="reveal">
-
-    <div style="background:var(--card);padding:2rem;transition:background 0.3s;" onmouseenter="this.style.background='#141e2e'" onmouseleave="this.style.background='var(--card)'">
-      <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;">Recreational Analysis</p>
-      <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;">R for fun, actually.</h3>
-      <p style="font-size:0.82rem;color:var(--sub);line-height:1.75;">
-        I run random analyses on R just because I'm curious. Recent ones: comparing cost-of-living vs average salary across countries to figure out where you could buy a BMW the fastest. Spoiler — it's not where you'd expect.
-        <br><br>
-        It's the same instinct that drives the banking risk platform — find a dataset, ask a dumb question, let the numbers answer it.
-      </p>
-      <div style="margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:0.4rem;">
-        <span class="tech-tag">R</span>
-        <span class="tech-tag">Data Viz</span>
-        <span class="tech-tag">Curiosity-Driven</span>
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-label-top">CLASSIFIER.ACC</div>
+        <span class="stat-number">88<sup>%</sup></span>
+        <div class="stat-label">Tuned Random Forest on LIGO</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label-top">SAMPLES</div>
+        <span class="stat-number">7,966</span>
+        <div class="stat-label">Gravitational-wave events classified</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label-top">FEATURES</div>
+        <span class="stat-number">20<sup>+</sup></span>
+        <div class="stat-label">Engineered from raw loan data</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label-top">MACRO F1</div>
+        <span class="stat-number">0.81</span>
+        <div class="stat-label">Across 22 imbalanced classes</div>
       </div>
     </div>
-
-    <div style="background:var(--card);padding:2rem;transition:background 0.3s;" onmouseenter="this.style.background='#141e2e'" onmouseleave="this.style.background='var(--card)'">
-      <p style="font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;">Music & Culture</p>
-      <h3 style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:0.8rem;">Clubbing & music.</h3>
-      <p style="font-size:0.82rem;color:var(--sub);line-height:1.75;">
-        When I'm not in front of a screen I'm usually out — clubs, live music, whatever's happening in Vancouver. Music keeps me sane when debugging embedded firmware at 1am doesn't.
-        <br><br>
-        Also useful context: I can confirm from personal experience that stress physiologically measurable. The lie detector data looks very different after a night out.
-      </p>
-      <div style="margin-top:1.2rem;display:flex;flex-wrap:wrap;gap:0.4rem;">
-        <span class="tech-tag" style="border-color:rgba(255,124,53,0.3);color:var(--orange);background:rgba(255,124,53,0.07);">Vancouver</span>
-        <span class="tech-tag" style="border-color:rgba(255,124,53,0.3);color:var(--orange);background:rgba(255,124,53,0.07);">Music</span>
-        <span class="tech-tag" style="border-color:rgba(255,124,53,0.3);color:var(--orange);background:rgba(255,124,53,0.07);">Human</span>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- ── CONTACT ── -->
-<section id="contact" class="contact-section">
-  <p class="section-label reveal">Get In Touch</p>
-  <h2 class="section-title reveal">Let's build something.</h2>
-  <div class="divider reveal"></div>
-
-  <div class="contact-grid reveal">
-    <div>
-      <p style="color: var(--sub); font-size: 0.85rem; line-height: 1.8; margin-bottom: 2rem;">
-        I'm a Statistics major (Physics minor) at UBC who builds things end-to-end — from credit risk models and SHAP explainability to embedded sensors and real-time signal processing. Always open to interesting problems, internships, or collaborations in data science, quantitative finance, or statistical modelling.
-      </p>
-      <p style="color: var(--muted); font-size: 0.75rem; letter-spacing: 0.05em;">
-        Currently based in Vancouver, BC.
-      </p>
+<section class="editorial" id="about">
+  <div class="wrap-narrow">
+    <div class="section-header">
+      <span class="section-num">§ 01</span>
+      <h2 class="section-title">The <em>candidate</em></h2>
+      <span class="section-kicker">About</span>
     </div>
+    <div class="about-body">
+      <p>Most statistics students stop at the notebook. I don't. The projects below are designed end-to-end: raw data in, model trained, results explained, system deployed. Whether that means building a Shiny dashboard for credit scoring, running grid search on a 22-class imbalanced LIGO dataset, or writing software I²C from scratch when hardware I²C refuses to cooperate &mdash; the point is always that the thing works, and the numbers behind it are defensible.</p>
+      <p>My coursework at UBC covers the full applied-stats toolkit: regression and GLMs, time series, multivariate analysis, statistical inference, and machine learning. The physics half of the degree keeps the mathematics honest &mdash; quantum mechanics, relativity, and computational physics mean I'm comfortable with the machinery underneath the libraries, not just the import statements.</p>
+      <p>I'm actively recruiting for <strong>Summer 2026 analyst internships</strong> and <strong>new-graduate roles starting May 2027</strong>. Open to Vancouver, Dubai, and Gurgaon. Strong preference for credit risk, quantitative analytics, financial analyst, and data analyst tracks at banks, insurers, consulting firms, and fintech.</p>
+    </div>
+  </div>
+</section>
+
+<section class="editorial" id="education">
+  <div class="wrap-narrow">
+    <div class="section-header">
+      <span class="section-num">§ 02</span>
+      <h2 class="section-title"><em>Education</em></h2>
+      <span class="section-kicker">In Progress</span>
+    </div>
+    <div class="edu-card">
+      <div class="edu-head">
+        <div class="edu-school">University of British Columbia</div>
+        <div class="edu-dates">Coursework Dec 2026 · Convocation May 2027</div>
+      </div>
+      <div class="edu-degree">Bachelor of Science, Combined Major in Statistics and Physics</div>
+      <div class="edu-coursework">
+        <div class="edu-label">Statistics &amp; Data</div>
+        <div class="edu-content">Regression (multiple, logistic, log-linear), Time Series, Multivariate Analysis, PCA &amp; Clustering, Statistical Inference (classical and simulation-based), Probability Theory, ANOVA, Categorical Data Analysis, Experimental Design, Machine Learning, Statistical Computing in R and Python.</div>
+        <div class="edu-label">Mathematics</div>
+        <div class="edu-content">Matrix Algebra (eigenvalues, diagonalization), Multivariable Calculus, Differential Equations, Differential and Integral Calculus.</div>
+        <div class="edu-label">Physics</div>
+        <div class="edu-content">Quantum Mechanics, Special Relativity, Computational Physics, Intermediate Experimental Physics (analog &amp; digital electronics).</div>
+        <div class="edu-label">Certification</div>
+        <div class="edu-content"><strong>Bloomberg Market Concepts (BMC)</strong> &mdash; Bloomberg. Coverage of economics, currencies, fixed income, and equities through the Bloomberg Terminal.</div>
+        <div class="edu-label">Activities</div>
+        <div class="edu-content"><strong>UBC Data Science Club</strong>, Member (2025&ndash;Present). Applied ML workshops and practitioner networking in analytics and quantitative finance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="featured" id="work">
+  <div class="wrap-narrow">
+    <div class="section-header">
+      <span class="section-num">§ 03</span>
+      <h2 class="section-title">Selected <em>work</em></h2>
+      <span class="section-kicker">Four Projects</span>
+    </div>
+    <div class="proj-kicker">01 · BANKING · CREDIT RISK</div>
+    <h3 class="proj-title">Banking Risk Platform</h3>
+    <p class="proj-subtitle">An end-to-end credit scoring and expected-loss system, built in R.</p>
+    <div class="proj-metrics">
+      <div class="metric"><div class="metric-value">20+</div><div class="metric-label">Engineered<br>features</div></div>
+      <div class="metric"><div class="metric-value">PD × LGD × EAD</div><div class="metric-label">Basel<br>framework</div></div>
+      <div class="metric"><div class="metric-value">SHAP</div><div class="metric-label">Per-prediction<br>explainability</div></div>
+      <div class="metric"><div class="metric-value">Shiny</div><div class="metric-label">Single &amp; batch<br>scoring dashboard</div></div>
+    </div>
+    <div class="proj-body">
+      <p>A complete credit-risk workflow: loan-level data cleaning, feature engineering (debt-service ratios, delinquency flags, vintage segmentation, high-cardinality encoding), Probability-of-Default training with <strong>XGBoost</strong>, benchmarking against logistic regression under severe class imbalance using stratified k-fold cross-validation, and probability calibration via <strong>Platt scaling</strong> so outputs can be consumed downstream as proper PD estimates.</p>
+      <p>Expected loss is simulated at the portfolio level through PD × LGD × EAD, matching the Basel framework. SHAP reasons are produced per prediction, and a <strong>model card</strong> &mdash; version, trained timestamp, metrics, and known failure modes &mdash; ships with the bundle for auditability and governance review. Evaluated on ROC AUC and PR AUC rather than raw accuracy, which is the correct call when defaults are rare.</p>
+    </div>
+    <div class="proj-stack">
+      <span class="tag">R</span><span class="tag">XGBoost</span><span class="tag">Shiny</span><span class="tag">SHAP</span><span class="tag">tidyverse</span><span class="tag">Credit Risk</span><span class="tag">Basel Framework</span><span class="tag">Platt Scaling</span>
+    </div>
+    <a href="https://github.com/booboob01/banking-risk-platform" class="proj-link" target="_blank" rel="noopener">Read the repository</a>
+  </div>
+</section>
+
+<section class="editorial">
+  <div class="wrap-narrow">
+    <div class="project-grid">
+
+      <article class="project-card">
+        <div class="card-head">
+          <div>
+            <div class="proj-kicker">02 · PHYSICS · MULTI-CLASS ML</div>
+            <h3 class="card-title">LIGO Gravitational-Wave Glitch Classifier</h3>
+          </div>
+          <div class="card-meta">Python · scikit-learn<br>PHYS 310 · 2026</div>
+        </div>
+        <div class="card-body">
+          <p>Multi-class classification of <strong>7,966 detector-noise samples across 22 severely imbalanced glitch classes</strong> (67&times; ratio between largest and smallest) from the LIGO Gravity Spy dataset. The problem: separate real astrophysical signal candidates from instrumental artefacts, where naive accuracy would be wildly misleading.</p>
+          <p>Compared Logistic Regression, SVM (RBF), and Random Forest under <code>class_weight='balanced'</code> with stratified splits. Validated stability with 3-fold cross-validation and tuned the Random Forest via grid search over depth, estimators, and split thresholds. Feature importance placed <strong>peak_frequency (27%), amplitude (16%), and SNR (15%)</strong> as top predictors &mdash; matching physical intuition about how glitches separate in time-frequency space.</p>
+        </div>
+        <div class="card-metrics">
+          <div class="card-metric"><span class="card-metric-value">88%</span><span class="card-metric-label">Accuracy · tuned</span></div>
+          <div class="card-metric"><span class="card-metric-value">0.81</span><span class="card-metric-label">Macro F1</span></div>
+          <div class="card-metric"><span class="card-metric-value">0.87</span><span class="card-metric-label">Weighted F1</span></div>
+          <div class="card-metric"><span class="card-metric-value">± 0.01</span><span class="card-metric-label">CV · test drift</span></div>
+        </div>
+        <div class="proj-stack">
+          <span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">Random Forest</span><span class="tag">Grid Search</span><span class="tag">3-Fold CV</span><span class="tag">SHAP</span><span class="tag">LIGO / Physics</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-head">
+          <div>
+            <div class="proj-kicker">03 · REAL ESTATE · REGRESSION</div>
+            <h3 class="card-title">Vancouver Housing Price Prediction</h3>
+          </div>
+          <div class="card-meta">R · Python<br>ggplot2 · 2025</div>
+        </div>
+        <div class="card-body">
+          <p>Modelled Vancouver residential transaction prices using <strong>10+ years of sales data</strong> joined with macroeconomic indicators: interest rates, CPI, and household income. Engineered spatial, temporal, and property-attribute features to capture non-linear effects that simple specifications miss.</p>
+          <p>Validated multiple model specifications on held-out test sets using RMSE and MAE. Drivers and residual behaviour communicated to a non-technical audience through ggplot2 visualisations &mdash; because a model nobody can read is a model nobody will trust.</p>
+        </div>
+        <div class="proj-stack">
+          <span class="tag">R</span><span class="tag">Python</span><span class="tag">Regression</span><span class="tag">Time Series</span><span class="tag">Feature Engineering</span><span class="tag">ggplot2</span>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <div class="card-head">
+          <div>
+            <div class="proj-kicker">04 · EMBEDDED · SIGNAL PROCESSING</div>
+            <h3 class="card-title">Biometric Lie Detector</h3>
+          </div>
+          <div class="card-meta">MSP430F5529 · Python<br>PHYS 319 · 2026</div>
+        </div>
+        <div class="card-body">
+          <p>End-to-end physiological stress-detection system, built from <strong>bare metal up</strong>. A <strong>MAX30102 optical pulse sensor</strong> and a DIY galvanic skin response circuit (voltage divider + elastic band stabilisation) stream <strong>100 Hz</strong> multi-channel data over UART into a Python signal-processing pipeline.</p>
+          <p>I²C was implemented in software from scratch after hardware I²C showed bus contention. The Python stack applies <strong>Butterworth bandpass (0.5&ndash;4 Hz)</strong>, IIR tonic/phasic GSR decomposition, RMSSD-HRV calculation, and adaptive peak detection with quality-gating on inter-beat-interval variability. Five physiological signals fuse into a research-weighted 0&ndash;100 deception score.</p>
+        </div>
+        <div class="card-metrics">
+          <div class="card-metric"><span class="card-metric-value">100 Hz</span><span class="card-metric-label">Stream rate</span></div>
+          <div class="card-metric"><span class="card-metric-value">5</span><span class="card-metric-label">Signals fused</span></div>
+          <div class="card-metric"><span class="card-metric-value">0.5–4 Hz</span><span class="card-metric-label">Bandpass filter</span></div>
+        </div>
+        <div class="proj-stack">
+          <span class="tag">Embedded C</span><span class="tag">MSP430F5529</span><span class="tag">Software I²C</span><span class="tag">UART</span><span class="tag">SciPy</span><span class="tag">Butterworth Filter</span><span class="tag">RMSSD-HRV</span><span class="tag">GSR</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="editorial" id="stack">
+  <div class="wrap-narrow">
+    <div class="section-header">
+      <span class="section-num">§ 04</span>
+      <h2 class="section-title">Technical <em>stack</em></h2>
+      <span class="section-kicker">Tools &amp; Methods</span>
+    </div>
+    <div class="stack-grid">
+      <div class="stack-label">Languages</div>
+      <div class="stack-items"><strong>Python</strong> (pandas, NumPy, scikit-learn, SciPy, Matplotlib) · <strong>R</strong> (tidyverse, ggplot2, Shiny, caret, xgboost) · <strong>SQL</strong> · Embedded C</div>
+      <div class="stack-label">Statistics &amp; Modelling</div>
+      <div class="stack-items">Linear and Logistic Regression · GLMs · Time Series · Hypothesis Testing · ANOVA · PCA · Clustering · Feature Engineering · Cross-Validation · Probability Calibration (Platt scaling, isotonic regression)</div>
+      <div class="stack-label">Machine Learning</div>
+      <div class="stack-items">XGBoost · Random Forest · SVM · Logistic Regression · SHAP explainability · ROC &amp; PR AUC · Imbalanced classification · Grid search tuning · train/validation/test discipline</div>
+      <div class="stack-label">Signal Processing</div>
+      <div class="stack-items">Butterworth &amp; IIR filters · RMSSD-HRV · Adaptive peak detection · EDA/GSR tonic/phasic decomposition · UART · software I²C (bit-bang) · multi-sensor data fusion</div>
+      <div class="stack-label">Tools &amp; Platforms</div>
+      <div class="stack-items">Git &amp; GitHub · Jupyter · RStudio · LaTeX · Microsoft Excel · Microsoft Office · <strong>Bloomberg Terminal</strong> (BMC certified)</div>
+    </div>
+  </div>
+</section>
+
+<section class="editorial">
+  <div class="wrap">
+    <div class="section-header">
+      <span class="section-num">§ 05</span>
+      <h2 class="section-title"><em>Currently</em></h2>
+      <span class="section-kicker">In Motion</span>
+    </div>
+    <div class="currently-grid">
+      <div class="currently-card">
+        <div class="currently-card-head">READING</div>
+        <h4 class="currently-card-title">Elements of Statistical Learning</h4>
+        <p class="currently-card-body">Working through Hastie, Tibshirani &amp; Friedman. Re-deriving the bits that libraries hide from you.</p>
+      </div>
+      <div class="currently-card">
+        <div class="currently-card-head">BUILDING</div>
+        <h4 class="currently-card-title">SQL fluency &amp; financial modelling</h4>
+        <p class="currently-card-body">StrataScratch for SQL case practice; building DCF and three-statement models in Excel from scratch.</p>
+      </div>
+      <div class="currently-card">
+        <div class="currently-card-head">APPLYING</div>
+        <h4 class="currently-card-title">Summer 2026 internships</h4>
+        <p class="currently-card-body">Canadian Big Five graduate programs, Big Four analytics, Vancouver-local banks and insurers, Dubai and Gurgaon finance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap-narrow contact-inner">
+    <div class="section-header">
+      <span class="section-num">§ 06</span>
+      <h2 class="section-title">Get in <em>touch</em></h2>
+      <span class="section-kicker">Still reading?</span>
+    </div>
+    <p class="contact-lead">Hiring for an analyst role, internship, or a coffee chat? <em>The fastest path is email.</em> I reply within 24 hours.</p>
     <div class="contact-links">
-      <a href="https://github.com/booboob01" class="contact-link" target="_blank">
-        <span class="contact-link-label">GitHub</span>
-        <span class="contact-link-value">booboob01</span>
-        <span class="contact-link-arrow">↗</span>
+      <button type="button" class="contact-item" data-copy="vbhvsethi@gmail.com" data-label="email">
+        <span class="contact-label">Email · click to copy</span>
+        <span class="contact-value">vbhvsethi@gmail.com</span>
+      </button>
+      <button type="button" class="contact-item" data-copy="+12368681027" data-label="phone">
+        <span class="contact-label">Phone · click to copy</span>
+        <span class="contact-value">+1 236-868-1027</span>
+      </button>
+      <a href="https://linkedin.com/in/vaibhav-sethi-a73a93244" target="_blank" rel="noopener" class="contact-item" style="display:flex;">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">/in/vaibhav-sethi</span>
       </a>
-      <a href="mailto:vbhvsethi@gmail.com" class="contact-link">
-        <span class="contact-link-label">Email</span>
-        <span class="contact-link-value">vbhvsethi@gmail.com</span>
-        <span class="contact-link-arrow">↗</span>
+      <a href="https://github.com/booboob01" target="_blank" rel="noopener" class="contact-item" style="display:flex;">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">/booboob01</span>
       </a>
     </div>
+    <a href="./Vaibhav_Sethi_Resume.pdf" class="contact-cta" download>Download Resume <span>↓</span></a>
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Vaibhav Sethi</p>
-  <p>Built from scratch · Vancouver BC</p>
+<footer class="colophon">
+  <div class="wrap colophon-inner">
+    <div><em>Built in Vancouver</em> &nbsp;·&nbsp; Set in Fraunces, Newsreader &amp; JetBrains Mono</div>
+    <div>© 2026 Vaibhav Sethi &nbsp;·&nbsp; Last updated April 2026</div>
+  </div>
 </footer>
 
 <script>
-  // Custom cursor
+// CURSOR FOLLOWER
+(function() {
   const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
+  if (!cursor) return;
+  let cx = 0, cy = 0, tx = 0, ty = 0;
+  document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
+  function loop() { cx += (tx - cx) * 0.22; cy += (ty - cy) * 0.22; cursor.style.left = cx + 'px'; cursor.style.top = cy + 'px'; requestAnimationFrame(loop); }
+  loop();
+  document.querySelectorAll('a, button, .project-card, .currently-card, .btn, .contact-item, .tag').forEach(t => {
+    t.addEventListener('mouseenter', () => cursor.classList.add('active'));
+    t.addEventListener('mouseleave', () => cursor.classList.remove('active'));
   });
+})();
 
-  function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
+// TYPED TAGLINE
+(function() {
+  const el = document.getElementById('typed');
+  if (!el) return;
+  const phrases = ["Models that ship, not notebooks that sit.", "Credit risk. Gravitational waves. Housing prices.", "Statistician by training. Engineer by habit."];
+  let pi = 0, ci = 0, deleting = false;
+  function tick() {
+    const current = phrases[pi];
+    if (!deleting) {
+      ci++; el.textContent = current.slice(0, ci);
+      if (ci === current.length) { deleting = true; setTimeout(tick, 2800); return; }
+      setTimeout(tick, 45 + Math.random() * 45);
+    } else {
+      ci--; el.textContent = current.slice(0, ci);
+      if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(tick, 400); return; }
+      setTimeout(tick, 22);
+    }
   }
-  animRing();
+  setTimeout(tick, 700);
+})();
 
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.width = '20px';
-      cursor.style.height = '20px';
-      ring.style.width = '60px';
-      ring.style.height = '60px';
-      ring.style.opacity = '0.8';
+// LIGO CHART
+(function() {
+  const canvas = document.getElementById('ligoChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const data = [['Blip',1821],['Koi_Fish',706],['Low_Freq_Burst',621],['Light_Modulation',512],['Power_Line',449],['Extremely_Loud',447],['Low_Freq_Lines',447],['Scattered_Light',443],['Violin_Mode',412],['Scratchy',337],['1080Lines',328],['Whistle',299],['Helix',279],['Repeating_Blips',263],['No_Glitch',150],['Tomte',103],['None_of_Above',81],['1400Ripples',81],['Chirp',60],['Air_Compressor',58],['Wandering_Line',42],['Paired_Doves',27]];
+  const mean = data.reduce((s,d) => s + d[1], 0) / data.length;
+  function draw() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr; canvas.height = rect.height * dpr;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.scale(dpr, dpr);
+    const W = rect.width, H = rect.height;
+    ctx.clearRect(0, 0, W, H);
+    const padL = 8, padR = 8, padT = 14, padB = 14;
+    const chartW = W - padL - padR; const chartH = H - padT - padB;
+    const maxVal = Math.max(...data.map(d => d[1]));
+    const gap = 2; const barW = (chartW - gap * (data.length - 1)) / data.length;
+    ctx.strokeStyle = '#2a2622'; ctx.lineWidth = 1;
+    [0.25, 0.5, 0.75].forEach(p => { const y = padT + chartH * p; ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke(); });
+    const meanY = padT + chartH - (mean / maxVal) * chartH;
+    ctx.strokeStyle = '#e85a4a'; ctx.lineWidth = 1; ctx.setLineDash([3, 3]);
+    ctx.beginPath(); ctx.moveTo(padL, meanY); ctx.lineTo(W - padR, meanY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.font = '9px JetBrains Mono, monospace'; ctx.fillStyle = '#e85a4a'; ctx.textAlign = 'right';
+    ctx.fillText('μ = ' + Math.round(mean), W - padR - 4, meanY - 4);
+    data.forEach((d, i) => {
+      const h = (d[1] / maxVal) * chartH;
+      const x = padL + i * (barW + gap);
+      const y = padT + chartH - h;
+      const t = (i / (data.length - 1));
+      const r = Math.round(232 - t * 50); const g = Math.round(90 + t * 50); const b = Math.round(74 + t * 40);
+      ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+      ctx.fillRect(x, y, barW, h);
     });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.width = '10px';
-      cursor.style.height = '10px';
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-      ring.style.opacity = '0.5';
-    });
-  });
+    ctx.font = 'bold 10px JetBrains Mono, monospace'; ctx.fillStyle = '#f4efe6'; ctx.textAlign = 'center';
+    ctx.fillText('1,821', padL + barW / 2, padT + chartH - (data[0][1] / maxVal) * chartH - 5);
+  }
+  draw(); window.addEventListener('resize', draw);
+})();
 
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+// COPY TO CLIPBOARD
+(function() {
+  const toast = document.getElementById('toast');
+  function showToast(msg) {
+    toast.textContent = '✓ ' + msg; toast.classList.add('show');
+    clearTimeout(showToast._t); showToast._t = setTimeout(() => toast.classList.remove('show'), 1800);
+  }
+  document.querySelectorAll('[data-copy]').forEach(el => {
+    el.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const val = el.getAttribute('data-copy');
+      const label = el.getAttribute('data-label') || 'copied';
+      try {
+        if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(val); }
+        else {
+          const ta = document.createElement('textarea');
+          ta.value = val; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+        }
+        showToast(label.charAt(0).toUpperCase() + label.slice(1) + ' copied');
+      } catch (err) {
+        if (label === 'email') window.location.href = 'mailto:' + val;
+        else if (label === 'phone') window.location.href = 'tel:' + val;
       }
     });
-  }, { threshold: 0.1 });
+  });
+})();
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+// REVEAL
+if ('IntersectionObserver' in window) {
+  const reveals = document.querySelectorAll('section.editorial, .featured, .stats, .contact');
+  reveals.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; el.style.transition = 'opacity 0.9s ease-out, transform 0.9s ease-out'; });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)';
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => io.observe(el));
+}
 
-  // Animated terminal typing in hero
-  const tagline = document.querySelector('.hero-tagline');
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// KONAMI EASTER EGG (↑↑↓↓←→←→BA = gold mode)
+(function() {
+  const keys = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let i = 0;
+  document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === keys[i].toLowerCase()) {
+      i++;
+      if (i === keys.length) {
+        document.documentElement.style.setProperty('--oxblood', '#d4a24c');
+        document.documentElement.style.setProperty('--oxblood-bright', '#e8b85c');
+        document.documentElement.style.setProperty('--oxblood-soft', '#8b7028');
+        console.log('%c Nice. Gold mode activated. ', 'font: 600 14px JetBrains Mono, monospace; color: #d4a24c; background: #0d0b09; padding: 6px 12px;');
+        i = 0;
+      }
+    } else { i = 0; }
+  });
+})();
+
+// CONSOLE
+console.log('%c Hello. ', 'font: italic 20px Fraunces, Georgia, serif; color: #e85a4a; background: #0d0b09; padding: 6px 14px; border: 1px solid #e85a4a;');
+console.log('%c If you opened DevTools, you are the kind of recruiter I want to work for. ', 'font: 14px Newsreader, Georgia, serif; color: #e8e0d0; padding: 4px 0;');
+console.log('%c Try: ↑↑↓↓←→←→BA ', 'font: 11px JetBrains Mono, monospace; color: #706b62; padding: 4px 0;');
+console.log('%c vbhvsethi@gmail.com ', 'font: 600 13px JetBrains Mono, monospace; color: #e85a4a;');
 </script>
+
 </body>
 </html>
